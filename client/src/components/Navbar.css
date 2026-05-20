@@ -1,0 +1,238 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--nav-shadow);
+  height: var(--nav-height);
+  width: 100%;
+  max-width: 100%;
+  }
+  
+  .navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  }
+  
+  /* Logo */
+  .navbar-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  }
+  
+  .navbar-logo-img {
+  height: 200px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  }
+  
+  /* Nav Links */
+  .navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  }
+  
+  .navbar-link {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+  position: relative;
+  }
+  
+  .navbar-link:hover {
+  color: var(--primary);
+  }
+  
+  .navbar-link.active {
+  color: var(--primary);
+  font-weight: 600;
+  }
+  
+  .navbar-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 1px;
+  }
+  
+  /* Actions */
+  .navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  }
+  
+  .navbar-user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  }
+  
+  .navbar-icon-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+  font-size: 1.2rem;
+  }
+  
+  .navbar-icon-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  }
+  
+  .navbar-cta {
+  font-size: 0.85rem !important;
+  }
+  
+  .navbar-hamburger {
+  display: none;
+  background: none;
+  color: var(--text);
+  padding: 8px;
+  position: relative;
+  z-index: 10002;
+  border: none;
+  cursor: pointer;
+  }
+  
+  .navbar-mobile-actions {
+  display: none;
+  }
+  
+  .navbar-overlay {
+  display: none;
+  }
+  
+  /* Mobile */
+  @media (max-width: 968px) {
+  
+  .navbar {
+  z-index: 10000;
+  overflow: visible;
+  backdrop-filter: none;
+  background: #fff;
+  }
+  
+  .navbar .container,
+  .navbar-inner {
+  overflow: visible;
+  }
+  
+  body:has(.navbar-links.open) {
+  overflow-x: hidden;
+  }
+  
+  .navbar-links {
+  position: fixed;
+  top: var(--nav-height);
+  right: 0;
+  width: min(300px, 100%);
+  max-width: 100%;
+  height: calc(100vh - var(--nav-height));
+  height: calc(100dvh - var(--nav-height));
+  background: #fff;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 24px;
+  gap: 4px;
+  display: flex;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+  z-index: 10001;
+  overflow-y: auto;
+  overflow-x: hidden;
+  }
+  
+  .navbar-links.open {
+  transform: translateX(0);
+  }
+  
+  .navbar-link {
+  padding: 14px 16px;
+  font-size: 1rem;
+  border-radius: var(--radius-sm);
+  }
+  
+  .navbar-link:hover {
+  background: var(--primary-light);
+  }
+  
+  .navbar-actions {
+  display: none;
+  }
+  
+  .navbar-hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+  
+  .navbar-mobile-actions {
+  display: block;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  }
+  
+  .navbar-mobile-actions .btn {
+  width: 100%;
+  }
+  
+  .navbar-overlay {
+  display: block;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  width: 100%;
+  height: calc(100vh - var(--nav-height));
+  height: calc(100dvh - var(--nav-height));
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  }
+
+  }
+  
+  @media (max-width: 480px) {
+  
+  .navbar-logo-img {
+  height: 110px;
+  }
+  
+  .navbar-links {
+  width: 100%;
+  padding: 20px 16px;
+  }
+  
+  .navbar-link {
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  }
+  
+  .navbar-hamburger {
+  padding: 6px;
+  }
+  }
+  

@@ -1,0 +1,190 @@
+.sell-hero {
+  background: var(--primary-gradient);
+  padding: 48px 0;
+  text-align: center;
+}
+
+.sell-hero-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.sell-hero-subtitle {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sell-content {
+  padding: 48px 0 80px;
+}
+
+/* Steps */
+.sell-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.sell-step {
+  text-align: center;
+  padding: 32px 24px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+}
+
+.sell-step:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.sell-step-number {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0 auto 16px;
+}
+
+.sell-step h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.sell-step p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* Form Section */
+.sell-form-section {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.sell-form-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  padding: 36px;
+}
+
+.sell-form-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.sell-form-desc {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 28px;
+}
+
+.sell-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 20px;
+}
+
+/* Benefits */
+.sell-benefits {
+  background: var(--bg-light);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.sell-benefits h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+.sell-benefits ul {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sell-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.benefit-icon {
+  color: var(--success);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .sell-hero {
+    padding: 36px 0;
+  }
+
+  .sell-hero-title {
+    font-size: 1.75rem;
+  }
+
+  .sell-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .sell-form-section {
+    grid-template-columns: 1fr;
+  }
+
+  .sell-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sell-content {
+    padding: 32px 0 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sell-hero-title {
+    font-size: 1.5rem;
+  }
+
+  .sell-hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .sell-form-card {
+    padding: 24px 16px;
+  }
+
+  .sell-benefits {
+    padding: 24px 16px;
+  }
+
+  .sell-step {
+    padding: 24px 16px;
+  }
+}
