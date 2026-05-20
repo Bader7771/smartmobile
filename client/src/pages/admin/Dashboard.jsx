@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiPlus, FiEdit2, FiTrash2, FiToggleLeft, FiToggleRight, FiPackage } from 'react-icons/fi';
-import api from '../../services/api';
+import api, { getAssetUrl } from '../../services/api';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -105,7 +105,7 @@ const Dashboard = () => {
                   <tr key={car._id}>
                     <td>
                       <img
-                        src={car.images?.[0] || 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=100&q=60'}
+                        src={car.images?.[0] ? getAssetUrl(car.images[0]) : 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=100&q=60'}
                         alt={car.name}
                         className="dashboard-car-thumb"
                       />

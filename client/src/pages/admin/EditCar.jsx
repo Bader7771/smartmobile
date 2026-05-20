@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { FiArrowLeft, FiUpload } from 'react-icons/fi';
-import api from '../../services/api';
+import api, { getAssetUrl } from '../../services/api';
 import './AddCar.css';
 
 const EditCar = () => {
@@ -123,7 +123,7 @@ const EditCar = () => {
               <label className="form-label">Images actuelles</label>
               {existingImages.length > 0 ? (
                 <div className="add-car-previews">
-                  {existingImages.map((src, i) => <img key={i} src={src} alt={`Current ${i}`} className="add-car-preview-img" />)}
+                  {existingImages.map((src, i) => <img key={i} src={getAssetUrl(src)} alt={`Current ${i}`} className="add-car-preview-img" />)}
                 </div>
               ) : <p style={{fontSize:'0.9rem',color:'var(--text-muted)'}}>Aucune image</p>}
             </div>

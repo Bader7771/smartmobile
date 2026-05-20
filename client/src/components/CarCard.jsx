@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiHeart, FiCalendar, FiNavigation } from 'react-icons/fi';
+import { getAssetUrl } from '../services/api';
 import './CarCard.css';
 
 const CarCard = ({ car }) => {
@@ -12,7 +13,7 @@ const CarCard = ({ car }) => {
   };
 
   const imageUrl = car.images && car.images.length > 0
-    ? car.images[0]
+    ? getAssetUrl(car.images[0])
     : 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400&q=80';
 
   return (

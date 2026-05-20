@@ -4,6 +4,14 @@ const Car = require('../models/Car');
 const { protect } = require('../middleware/auth');
 const upload = require('../middleware/upload');
 
+const getUploadedImageUrl = (file) => {
+  if (file.buffer) {
+    return `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+  }
+
+  return `/uploads/${file.filename}`;
+};
+
 /**
  * @route   GET /api/cars
  * @desc    Get all cars with optional filters
@@ -53,7 +61,7 @@ router.post('/', protect, upload.array('images', 5), async (req, res) => {
   try {
     const { name, brand, model, year, mileage, price, description, shortDescription, quantity, status } = req.body;
 
-    const images = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
+    const images = req.files ? req.files.map(getUploadedImageUrl) : [];
 
     const car = await Car.create({
       name,
@@ -102,7 +110,7 @@ router.put('/:id', protect, upload.array('images', 5), async (req, res) => {
 
     /* If new images uploaded, add them; if keepImages is false, replace */
     if (req.files && req.files.length > 0) {
-      const newImages = req.files.map(file => `/uploads/${file.filename}`);
+      const newImages = req.files.map(getUploadedImageUrl);
       if (keepImages === 'true') {
         car.images = [...car.images, ...newImages];
       } else {

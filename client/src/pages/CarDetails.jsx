@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FiCalendar, FiNavigation, FiTag, FiPackage, FiArrowLeft } from 'react-icons/fi';
 import WhatsAppButton from '../components/WhatsAppButton';
-import api from '../services/api';
+import api, { getAssetUrl } from '../services/api';
 import './CarDetails.css';
 
 const CarDetails = () => {
@@ -38,7 +38,7 @@ const CarDetails = () => {
   const formatPrice = (price) => new Intl.NumberFormat('fr-MA').format(price);
   
   const images = car.images && car.images.length > 0
-    ? car.images
+    ? car.images.map(getAssetUrl)
     : ['https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=80'];
 
   return (

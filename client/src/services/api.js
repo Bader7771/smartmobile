@@ -1,7 +1,31 @@
 import axios from 'axios';
 
+const configuredApiUrl = import.meta.env.VITE_API_URL;
+const isProduction = import.meta.env.PROD;
+const isLocalApiUrl = configuredApiUrl && /localhost|127\.0\.0\.1/.test(configuredApiUrl);
+const baseURL = isProduction && isLocalApiUrl
+  ? '/api'
+  : configuredApiUrl || '/api';
+
+export const getAssetUrl = (url) => {
+  if (!url || url.startsWith('http') || url.startsWith('data:')) {
+    return url;
+  }
+
+  if (!url.startsWith('/uploads')) {
+    return url;
+  }
+
+  if (!baseURL.startsWith('http')) {
+    return url;
+  }
+
+  return `${baseURL.replace(/\/api\/?$/, '')}${url}`;
+};
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
   }

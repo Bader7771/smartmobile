@@ -7,7 +7,12 @@ const Car = require('./models/Car');
 
 const seedDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
+    if (!mongoUri) {
+      throw new Error('MONGO_URI is not defined');
+    }
+
+    await mongoose.connect(mongoUri);
     console.log('MongoDB Connected for seeding...');
 
     /* Create admin user if not exists */
