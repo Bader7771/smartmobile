@@ -1,0 +1,483 @@
+.home-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Shared section header */
+.home-section-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 40px;
+}
+
+.home-section-alt {
+  background: var(--bg-light);
+}
+
+/* —— Why Choose Us —— */
+.home-why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.home-why-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-light);
+  transition: var(--transition);
+  text-align: center;
+}
+
+.home-why-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(26, 109, 255, 0.15);
+}
+
+.home-why-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--radius);
+  font-size: 1.5rem;
+}
+
+.home-why-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.home-why-desc {
+  font-size: 0.88rem;
+  color: var(--text-light);
+  line-height: 1.65;
+}
+
+/* —— Popular Section —— */
+.popular-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.popular-view-all {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary);
+  transition: var(--transition-fast);
+}
+
+.popular-view-all:hover {
+  color: var(--primary-dark);
+  transform: translateX(4px);
+}
+
+.popular-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.popular-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-light);
+  padding: 48px 0;
+  font-size: 1rem;
+}
+
+/* —— About Us —— */
+.home-about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.home-about-label {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.home-about-lead {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.home-about-body {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+
+.home-about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.home-about-stat-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-light);
+  transition: var(--transition);
+}
+
+.home-about-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.home-about-stat-card--accent {
+  background: var(--primary-gradient);
+  border: none;
+}
+
+.home-about-stat-card--accent .home-about-stat-value,
+.home-about-stat-card--accent .home-about-stat-label {
+  color: #fff;
+}
+
+.home-about-stat-value {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.home-about-stat-label {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.home-about-image {
+  grid-column: 1 / -1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--card-shadow-hover);
+}
+
+.home-about-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+/* —— Sell CTA —— */
+.home-sell-cta {
+  position: relative;
+  padding: 72px 0;
+  overflow: hidden;
+}
+
+.home-sell-cta-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--primary-gradient);
+  z-index: 0;
+}
+
+.home-sell-cta-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(0, 0, 0, 0.08) 0%, transparent 40%);
+}
+
+.home-sell-cta-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.home-sell-cta-content {
+  max-width: 640px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.home-sell-cta-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.home-sell-cta-desc {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+
+/* —— Testimonials —— */
+.home-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.home-testimonial-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-light);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.home-testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.home-testimonial-stars {
+  display: flex;
+  gap: 4px;
+}
+
+.home-testimonial-star {
+  color: #f59e0b;
+  fill: #f59e0b;
+  font-size: 1rem;
+}
+
+.home-testimonial-text {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  flex: 1;
+  font-style: italic;
+}
+
+.home-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+}
+
+.home-testimonial-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.home-testimonial-name {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.home-testimonial-location {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+/* —— Contact / WhatsApp CTA —— */
+.home-contact-cta {
+  padding-bottom: 88px !important;
+}
+
+.home-contact-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  background: var(--bg-light);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--card-shadow);
+}
+
+.home-contact-cta-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+
+.home-contact-cta-desc {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.65;
+  margin-bottom: 16px;
+  max-width: 480px;
+}
+
+.home-contact-cta-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.home-contact-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.home-contact-link {
+  background: #fff;
+}
+
+/* —— Responsive —— */
+@media (max-width: 1100px) {
+  .popular-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-section-header {
+    margin-bottom: 32px;
+    text-align: left;
+  }
+
+  .popular-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .home-about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .home-about-stats {
+    order: -1;
+  }
+
+  .home-sell-cta {
+    padding: 56px 0;
+  }
+
+  .home-sell-cta-title {
+    font-size: 1.5rem;
+  }
+
+  .home-contact-cta-inner {
+    flex-direction: column;
+    text-align: center;
+    padding: 36px 24px;
+  }
+
+  .home-contact-cta-desc {
+    max-width: 100%;
+  }
+
+  .home-contact-cta-phone {
+    justify-content: center;
+  }
+
+  .home-contact-cta-actions {
+    width: 100%;
+  }
+
+  .home-contact-cta-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .popular-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .popular-header {
+    margin-bottom: 24px;
+  }
+
+  .home-why-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .home-why-card {
+    padding: 24px 20px;
+  }
+
+  .home-testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-about-stat-value {
+    font-size: 1.5rem;
+  }
+
+  .home-sell-cta {
+    padding: 48px 0;
+  }
+
+  .home-sell-cta-title {
+    font-size: 1.3rem;
+  }
+
+  .home-sell-cta-desc {
+    font-size: 0.9rem;
+  }
+
+  .home-contact-cta {
+    padding-bottom: 64px !important;
+  }
+
+  .home-contact-cta-title {
+    font-size: 1.3rem;
+  }
+}
