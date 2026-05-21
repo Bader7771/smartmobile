@@ -2,11 +2,12 @@
   "name": "autosmart-maroc-server",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
-  "main": "src/server.js",
+  "description": "AutoSmart Maroc - Car Marketplace API",
+  "main": "server.js",
   "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node seed.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
