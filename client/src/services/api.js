@@ -1,8 +1,10 @@
 import axios from 'axios';
 
 const configuredApiUrl = import.meta.env.VITE_API_URL;
+const devApiUrl = import.meta.env.VITE_DEV_API_URL || 'http://localhost:5000';
 const isProduction = import.meta.env.PROD;
 const isLocalApiUrl = configuredApiUrl && /localhost|127\.0\.0\.1/.test(configuredApiUrl);
+const hasValidProductionApiUrl = !isProduction || (configuredApiUrl && !isLocalApiUrl);
 
 const normalizeApiUrl = (url) => {
   if (!url) {
@@ -13,9 +15,20 @@ const normalizeApiUrl = (url) => {
   return trimmedUrl.endsWith('/api') ? trimmedUrl : `${trimmedUrl}/api`;
 };
 
-const baseURL = isProduction && isLocalApiUrl
-  ? '/api'
-  : normalizeApiUrl(configuredApiUrl);
+const getBaseURL = () => {
+  if (isProduction) {
+    if (!configuredApiUrl || isLocalApiUrl) {
+      console.error('VITE_API_URL must be set to the deployed backend URL in production.');
+      return '';
+    }
+
+    return normalizeApiUrl(configuredApiUrl);
+  }
+
+  return normalizeApiUrl(configuredApiUrl || devApiUrl);
+};
+
+const baseURL = getBaseURL();
 
 export const getAssetUrl = (url) => {
   if (!url || url.startsWith('http') || url.startsWith('data:')) {
@@ -75,6 +88,10 @@ const api = axios.create({
 
 /* Attach token from localStorage on every request */
 api.interceptors.request.use((config) => {
+  if (!hasValidProductionApiUrl) {
+    return Promise.reject(new Error('Missing production VITE_API_URL. Set it to your deployed backend URL in Vercel.'));
+  }
+
   const token = localStorage.getItem('autosmart_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

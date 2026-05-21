@@ -16,9 +16,21 @@ const localhostOrigins = [
   'http://127.0.0.1:3000'
 ];
 
+const splitOrigins = (value) => {
+  if (!value) {
+    return [];
+  }
+
+  return value
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+};
+
 const configuredOrigins = [
-  process.env.CLIENT_URL,
-  process.env.FRONTEND_URL,
+  ...splitOrigins(process.env.CLIENT_URL),
+  ...splitOrigins(process.env.FRONTEND_URL),
+  ...splitOrigins(process.env.FRONTEND_URLS),
   process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null
 ]
   .filter(Boolean)
