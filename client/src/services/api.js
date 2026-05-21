@@ -33,6 +33,38 @@ export const getAssetUrl = (url) => {
   return `${baseURL.replace(/\/api\/?$/, '')}${url}`;
 };
 
+export const getListFromResponse = (responseData, keys = ['cars', 'data', 'products']) => {
+  if (Array.isArray(responseData)) {
+    return responseData;
+  }
+
+  if (!responseData || typeof responseData !== 'object') {
+    return [];
+  }
+
+  for (const key of keys) {
+    if (Array.isArray(responseData[key])) {
+      return responseData[key];
+    }
+  }
+
+  return [];
+};
+
+export const getItemFromResponse = (responseData, keys = ['car', 'data', 'product']) => {
+  if (!responseData || typeof responseData !== 'object' || Array.isArray(responseData)) {
+    return null;
+  }
+
+  for (const key of keys) {
+    if (responseData[key] && typeof responseData[key] === 'object' && !Array.isArray(responseData[key])) {
+      return responseData[key];
+    }
+  }
+
+  return responseData;
+};
+
 const api = axios.create({
   baseURL,
   withCredentials: true,

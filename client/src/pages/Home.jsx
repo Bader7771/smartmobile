@@ -13,7 +13,7 @@ import HeroSection from '../components/HeroSection';
 import SearchBar from '../components/SearchBar';
 import StatsBar from '../components/StatsBar';
 import CarCard from '../components/CarCard';
-import api from '../services/api';
+import api, { getListFromResponse } from '../services/api';
 import './Home.css';
 
 const whyChooseUs = [
@@ -77,9 +77,10 @@ const Home = () => {
   const fetchPopularCars = async () => {
     try {
       const res = await api.get('/cars');
-      setPopularCars(res.data.slice(0, 4));
+      setPopularCars(getListFromResponse(res.data).slice(0, 4));
     } catch (err) {
       console.error('Error fetching cars:', err);
+      setPopularCars([]);
     } finally {
       setLoading(false);
     }
@@ -91,6 +92,7 @@ const Home = () => {
     );
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
   };
+  const popularCarsList = Array.isArray(popularCars) ? popularCars : [];
 
   return (
     <div className="home-page" id="home-page">
@@ -136,10 +138,10 @@ const Home = () => {
             <div className="spinner" />
           ) : (
             <div className="popular-grid">
-              {popularCars.map((car) => (
+              {popularCarsList.map((car) => (
                 <CarCard key={car._id} car={car} />
               ))}
-              {popularCars.length === 0 && (
+              {popularCarsList.length === 0 && (
                 <p className="popular-empty">Aucune voiture disponible pour le moment.</p>
               )}
             </div>

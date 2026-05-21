@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiSearch, FiFilter, FiX } from 'react-icons/fi';
 import CarCard from '../components/CarCard';
-import api from '../services/api';
+import api, { getListFromResponse } from '../services/api';
 import './Cars.css';
 
 const brands = ['BMW', 'Mercedes-Benz', 'Audi', 'Porsche', 'Land Rover', 'Volkswagen', 'Toyota', 'Honda'];
@@ -43,9 +43,10 @@ const Cars = () => {
       if (f.maxPrice) params.maxPrice = f.maxPrice;
       if (f.minYear) params.minYear = f.minYear;
       const res = await api.get('/cars', { params });
-      setCars(res.data);
+      setCars(getListFromResponse(res.data));
     } catch (err) {
       console.error('Error fetching cars:', err);
+      setCars([]);
     } finally {
       setLoading(false);
     }
@@ -66,6 +67,7 @@ const Cars = () => {
   };
 
   const hasActiveFilters = Object.values(filters).some(v => v !== '');
+  const carsList = Array.isArray(cars) ? cars : [];
 
   return (
     <div className="cars-page" id="cars-page">
@@ -144,7 +146,7 @@ const Cars = () => {
         <main className="cars-main">
           <div className="cars-top-bar">
             <p className="cars-count">
-              {loading ? '...' : `${cars.length} voiture${cars.length !== 1 ? 's' : ''} trouvée${cars.length !== 1 ? 's' : ''}`}
+              {loading ? '...' : `${carsList.length} voiture${carsList.length !== 1 ? 's' : ''} trouvée${carsList.length !== 1 ? 's' : ''}`}
             </p>
           </div>
 
@@ -152,10 +154,10 @@ const Cars = () => {
             <div className="spinner" />
           ) : (
             <div className="cars-grid">
-              {cars.map((car) => (
+              {carsList.map((car) => (
                 <CarCard key={car._id} car={car} />
               ))}
-              {cars.length === 0 && (
+              {carsList.length === 0 && (
                 <div className="cars-empty">
                   <p>Aucune voiture ne correspond à vos critères.</p>
                   <button className="btn btn-outline" onClick={clearFilters}>

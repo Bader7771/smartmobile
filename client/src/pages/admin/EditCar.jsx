@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { FiArrowLeft, FiUpload } from 'react-icons/fi';
-import api, { getAssetUrl } from '../../services/api';
+import api, { getAssetUrl, getItemFromResponse } from '../../services/api';
 import './AddCar.css';
 
 const EditCar = () => {
@@ -23,14 +23,18 @@ const EditCar = () => {
   const fetchCar = async () => {
     try {
       const res = await api.get(`/cars/${id}`);
-      const car = res.data;
+      const car = getItemFromResponse(res.data);
+      if (!car) {
+        setError('Voiture introuvable');
+        return;
+      }
       setForm({
         name: car.name || '', brand: car.brand || '', model: car.model || '',
         year: car.year || '', mileage: car.mileage || '', price: car.price || '',
         description: car.description || '', shortDescription: car.shortDescription || '',
         quantity: car.quantity || 1, status: car.status || 'available'
       });
-      setExistingImages(car.images || []);
+      setExistingImages(Array.isArray(car.images) ? car.images : []);
     } catch (err) {
       setError('Voiture introuvable');
     } finally {
@@ -121,7 +125,7 @@ const EditCar = () => {
             </div>
             <div className="form-group">
               <label className="form-label">Images actuelles</label>
-              {existingImages.length > 0 ? (
+              {Array.isArray(existingImages) && existingImages.length > 0 ? (
                 <div className="add-car-previews">
                   {existingImages.map((src, i) => <img key={i} src={getAssetUrl(src)} alt={`Current ${i}`} className="add-car-preview-img" />)}
                 </div>

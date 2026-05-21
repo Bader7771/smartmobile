@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FiCalendar, FiNavigation, FiTag, FiPackage, FiArrowLeft } from 'react-icons/fi';
 import WhatsAppButton from '../components/WhatsAppButton';
-import api, { getAssetUrl } from '../services/api';
+import api, { getAssetUrl, getItemFromResponse } from '../services/api';
 import './CarDetails.css';
 
 const CarDetails = () => {
@@ -18,9 +18,10 @@ const CarDetails = () => {
   const fetchCar = async () => {
     try {
       const res = await api.get(`/cars/${id}`);
-      setCar(res.data);
+      setCar(getItemFromResponse(res.data));
     } catch (err) {
       console.error('Error fetching car:', err);
+      setCar(null);
     } finally {
       setLoading(false);
     }
@@ -36,9 +37,10 @@ const CarDetails = () => {
 
   const isSold = car.status === 'sold';
   const formatPrice = (price) => new Intl.NumberFormat('fr-MA').format(price);
+  const carImages = Array.isArray(car.images) ? car.images : [];
   
-  const images = car.images && car.images.length > 0
-    ? car.images.map(getAssetUrl)
+  const images = carImages.length > 0
+    ? carImages.map(getAssetUrl)
     : ['https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=80'];
 
   return (

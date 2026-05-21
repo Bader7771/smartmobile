@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiPlus, FiEdit2, FiTrash2, FiToggleLeft, FiToggleRight, FiPackage } from 'react-icons/fi';
-import api, { getAssetUrl } from '../../services/api';
+import api, { getAssetUrl, getItemFromResponse, getListFromResponse } from '../../services/api';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -15,9 +15,10 @@ const Dashboard = () => {
   const fetchCars = async () => {
     try {
       const res = await api.get('/cars');
-      setCars(res.data);
+      setCars(getListFromResponse(res.data));
     } catch (err) {
       console.error('Error fetching cars:', err);
+      setCars([]);
     } finally {
       setLoading(false);
     }
@@ -27,7 +28,7 @@ const Dashboard = () => {
     if (!window.confirm(`Êtes-vous sûr de vouloir supprimer "${name}" ?`)) return;
     try {
       await api.delete(`/cars/${id}`);
-      setCars(cars.filter(car => car._id !== id));
+      setCars((prevCars) => (Array.isArray(prevCars) ? prevCars : []).filter(car => car._id !== id));
     } catch (err) {
       alert('Erreur lors de la suppression');
     }
@@ -36,13 +37,15 @@ const Dashboard = () => {
   const handleToggleStatus = async (id) => {
     try {
       const res = await api.patch(`/cars/${id}/status`);
-      setCars(cars.map(car => car._id === id ? res.data : car));
+      const updatedCar = getItemFromResponse(res.data);
+      setCars((prevCars) => (Array.isArray(prevCars) ? prevCars : []).map(car => car._id === id ? updatedCar || car : car));
     } catch (err) {
       alert('Erreur lors de la mise à jour du statut');
     }
   };
 
   const formatPrice = (price) => new Intl.NumberFormat('fr-MA').format(price);
+  const carsList = Array.isArray(cars) ? cars : [];
 
   return (
     <div className="dashboard" id="admin-dashboard">
@@ -62,21 +65,21 @@ const Dashboard = () => {
           <div className="dashboard-stat-card">
             <FiPackage className="dashboard-stat-icon" />
             <div>
-              <span className="dashboard-stat-value">{cars.length}</span>
+              <span className="dashboard-stat-value">{carsList.length}</span>
               <span className="dashboard-stat-label">Total voitures</span>
             </div>
           </div>
           <div className="dashboard-stat-card">
             <FiToggleRight className="dashboard-stat-icon success" />
             <div>
-              <span className="dashboard-stat-value">{cars.filter(c => c.status === 'available').length}</span>
+              <span className="dashboard-stat-value">{carsList.filter(c => c.status === 'available').length}</span>
               <span className="dashboard-stat-label">Disponibles</span>
             </div>
           </div>
           <div className="dashboard-stat-card">
             <FiToggleLeft className="dashboard-stat-icon danger" />
             <div>
-              <span className="dashboard-stat-value">{cars.filter(c => c.status === 'sold').length}</span>
+              <span className="dashboard-stat-value">{carsList.filter(c => c.status === 'sold').length}</span>
               <span className="dashboard-stat-label">Vendues</span>
             </div>
           </div>
@@ -101,7 +104,7 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {cars.map((car) => (
+                {carsList.map((car) => (
                   <tr key={car._id}>
                     <td>
                       <img
@@ -147,7 +150,7 @@ const Dashboard = () => {
                     </td>
                   </tr>
                 ))}
-                {cars.length === 0 && (
+                {carsList.length === 0 && (
                   <tr>
                     <td colSpan="8" className="dashboard-empty">
                       Aucune voiture. <Link to="/admin/add">Ajoutez votre première voiture →</Link>
